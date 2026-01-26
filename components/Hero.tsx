@@ -1,7 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles, ArrowRight } from 'lucide-react';
+import { Heart, Sparkles, ArrowRight, HandHeart, Smile } from 'lucide-react';
 import { HERO_IMAGES } from '../constants';
+
+const HERO_CONTENT = [
+  {
+    title: "Emotional Care",
+    description: "Because fighting cancer isn't just about the medicine.",
+    icon: <Heart fill="currentColor" size={24} />,
+    color: "bg-brandRed"
+  },
+  {
+    title: "Bright Hope",
+    description: "Small gestures that bring light to the most difficult days.",
+    icon: <Sparkles size={24} />,
+    color: "bg-brandTeal"
+  },
+  {
+    title: "Stronger Together",
+    description: "A family of survivors and supporters united by love.",
+    icon: <Smile size={24} />,
+    color: "bg-brandRed"
+  }
+];
 
 const Hero: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -89,20 +110,40 @@ const Hero: React.FC = () => {
               </AnimatePresence>
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               
-              {/* Floating "Emotional Care" card with continuous animation */}
+              {/* Dynamic Floating Content Card */}
               <motion.div 
                 animate={{ y: [0, -20, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute bottom-8 left-8 right-8 bg-white/95 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-lg"
+                className="absolute bottom-8 left-8 right-8 bg-white/95 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-xl overflow-hidden"
               >
-                <div className="flex items-center space-x-4">
-                  <div className="bg-brandRed p-3 rounded-full text-white">
-                    <Heart fill="white" size={24} />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900">Emotional Care</h3>
-                    <p className="text-sm text-gray-600 font-light leading-snug">Because fighting cancer isn't just about the medicine.</p>
-                  </div>
+                <AnimatePresence mode="wait">
+                  <motion.div 
+                    key={currentImageIndex}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.5 }}
+                    className="flex items-center space-x-4"
+                  >
+                    <div className={`${HERO_CONTENT[currentImageIndex].color} p-3 rounded-2xl text-white shadow-lg shadow-black/5`}>
+                      {HERO_CONTENT[currentImageIndex].icon}
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-900 text-lg">{HERO_CONTENT[currentImageIndex].title}</h3>
+                      <p className="text-sm text-gray-600 font-light leading-snug">{HERO_CONTENT[currentImageIndex].description}</p>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+                
+                {/* Progress bar for the slider */}
+                <div className="absolute bottom-0 left-0 h-1 bg-gray-100 w-full">
+                  <motion.div 
+                    key={currentImageIndex}
+                    initial={{ width: "0%" }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 5, ease: "linear" }}
+                    className={`h-full ${HERO_CONTENT[currentImageIndex].color}`}
+                  />
                 </div>
               </motion.div>
             </div>
