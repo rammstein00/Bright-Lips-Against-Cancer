@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send, Loader2, Heart } from 'lucide-react';
@@ -28,19 +29,12 @@ const AiAssistant: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Use direct process.env.API_KEY as per instructions
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: [
-          ...messages.map(m => ({
-            role: m.role,
-            parts: [{ text: m.text }]
-          })),
-          { role: 'user', parts: [{ text: input }] }
-        ],
+        contents: [...messages.map(m => (m.role === 'user' ? { role: 'user', parts: [{ text: m.text }] } : { role: 'model', parts: [{ text: m.text }] })), { role: 'user', parts: [{ text: input }] }],
         config: {
-          systemInstruction: 'You are a compassionate assistant for "Bright Lips Against Cancer". Goal: provide emotional support and info about the nonprofit helping chemo patients. Empathetic, lighthearted, resilience-focused. Mention "Bright Lips" occasionally. Concise.',
+          systemInstruction: 'You are a compassionate assistant for the "Bright Lips Against Cancer" organization. Your goal is to provide emotional support, encouragement, and information about the organization (a nonprofit that helps chemo patients). Always be empathetic, lighthearted, and focused on resilience. Mention "Bright Lips" occasionally. Keep responses concise.',
           temperature: 0.7,
         },
       });
@@ -48,8 +42,8 @@ const AiAssistant: React.FC = () => {
       const aiText = response.text || "I'm here for you. Stay strong!";
       setMessages(prev => [...prev, { role: 'model', text: aiText }]);
     } catch (error) {
-      console.error('AI Error:', error);
-      setMessages(prev => [...prev, { role: 'model', text: "I'm having a little trouble connecting, but remember: You are brave and strong!" }]);
+      console.error(error);
+      setMessages(prev => [...prev, { role: 'model', text: "I'm sorry, I'm having a little trouble connecting. But remember: You are brave and strong!" }]);
     } finally {
       setIsLoading(false);
     }
@@ -65,7 +59,7 @@ const AiAssistant: React.FC = () => {
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             className="mb-4 w-[350px] max-w-[calc(100vw-2rem)] h-[500px] bg-white rounded-3xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden"
           >
-            <div className="bg-brandTeal p-4 flex justify-between items-center text-white shrink-0">
+            <div className="bg-brandTeal p-4 flex justify-between items-center text-white">
               <div className="flex items-center space-x-2">
                 <div className="bg-white/20 p-2 rounded-full">
                   <Heart size={18} fill="white" />
@@ -86,7 +80,7 @@ const AiAssistant: React.FC = () => {
             <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-brandLight/30">
               {messages.map((m, i) => (
                 <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-sm ${
+                  <div className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-sm ${
                     m.role === 'user' ? 'bg-brandTeal text-white rounded-tr-none' : 'bg-white text-gray-700 border border-gray-100 rounded-tl-none'
                   }`}>
                     {m.text}
@@ -103,7 +97,7 @@ const AiAssistant: React.FC = () => {
               )}
             </div>
 
-            <div className="p-4 bg-white border-t flex space-x-2 shrink-0">
+            <div className="p-4 bg-white border-t flex space-x-2">
               <input
                 type="text"
                 value={input}
