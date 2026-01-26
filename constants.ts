@@ -4,6 +4,7 @@ export interface BlogArticle {
   id: string;
   title: string;
   excerpt: string;
+  content: string;
   date: string;
   image: string;
 }
@@ -69,16 +70,18 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     id: '1',
     title: 'Maintaining Hope During Chemotherapy',
-    excerpt: 'Discover strategies to stay positive and find small moments of joy during your treatment journey. Emotional resilience is just as important as medical care.',
+    excerpt: 'Discover strategies to stay positive and find small moments of joy during your treatment journey.',
+    content: 'The journey through chemotherapy is as much emotional as it is physical. At Bright Lips, we believe that maintaining hope is a vital part of the healing process. Many patients find that focusing on small, daily victories helps maintain a positive outlook. Whether it is a conversation with a loved one, a favorite meal, or simply the comfort of a warm blanket, these moments matter. Our mission is to provide those small gestures of comfort that remind you that you are not alone in this fight. Remember, resilience is built one day at a time.',
     date: 'March 15, 2024',
-    image: 'https://images.unsplash.com/photo-1579154273151-549b0485b0d6?q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1200'
   },
   {
     id: '2',
     title: 'The Impact of Community Support',
-    excerpt: 'No one fights alone. Learn how collective action and small gestures from organizations like Bright Lips can make a massive difference in a patient\'s life.',
+    excerpt: 'No one fights alone. Learn how collective action and small gestures can make a massive difference.',
+    content: 'Community support is the backbone of recovery. When a patient feels the embrace of a supportive network, their ability to cope with treatment increases significantly. Bright Lips Against Cancer was founded on the principle that together, we are stronger. Through our recreational activities and gift distributions, we create a network of smiles that stretches across Miami and beyond. Supporting a survivor isn\'t just about the big gestures; it\'s about being there, listening, and offering a bright red smile when things get tough. Join our community today and help us paint the world with resilience.',
     date: 'April 02, 2024',
-    image: 'https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=1200'
   }
 ];
 
