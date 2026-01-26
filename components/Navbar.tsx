@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, ShoppingCart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onNavigateHome?: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onNavigateHome }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -22,23 +26,37 @@ const Navbar: React.FC = () => {
     { name: 'Blog', href: 'blog' },
   ];
 
+  const handleLogoClick = () => {
+    if (onNavigateHome) onNavigateHome();
+    scrollToSection('hero');
+  };
+
   const scrollToSection = (id: string) => {
     setIsOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    
+    // Check if we are on an article page
+    if (window.location.hash.includes('article/')) {
+      if (onNavigateHome) onNavigateHome();
+      // Delay slightly to allow the home view to mount
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const element = document.getElementById(id);
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'}`}>
+    <nav className={`fixed w-full z-[100] transition-all duration-300 ${scrolled || window.location.hash.includes('article') ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex-shrink-0 flex items-center space-x-3 cursor-pointer group"
-            onClick={() => scrollToSection('hero')}
+            onClick={handleLogoClick}
           >
             <div className="relative">
                <motion.div 

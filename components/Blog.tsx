@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { BLOG_ARTICLES, BlogArticle } from '../constants';
-import { ArrowRight, Calendar, X, Share2, Heart } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { BLOG_ARTICLES } from '../constants';
+import { ArrowRight, Calendar } from 'lucide-react';
 
 const Blog: React.FC = () => {
-  const [selectedArticle, setSelectedArticle] = useState<BlogArticle | null>(null);
+  const handleArticleClick = (id: string) => {
+    window.location.hash = `article/${id}`;
+  };
 
   return (
     <section id="blog" className="py-24 bg-white relative">
@@ -27,7 +29,7 @@ const Blog: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
-              onClick={() => setSelectedArticle(article)}
+              onClick={() => handleArticleClick(article.id)}
               className="group cursor-pointer"
             >
               <div className="relative aspect-video rounded-[2.5rem] overflow-hidden mb-8 shadow-xl shadow-brandTeal/5 border border-gray-100 bg-gray-50">
@@ -54,91 +56,14 @@ const Blog: React.FC = () => {
                 <p className="text-gray-600 leading-relaxed font-light mb-6">
                   {article.excerpt}
                 </p>
-                <button className="flex items-center text-brandRed font-bold group-hover:translate-x-2 transition-transform">
+                <div className="flex items-center text-brandRed font-bold group-hover:translate-x-2 transition-transform">
                   Learn More <ArrowRight className="ml-2" size={18} />
-                </button>
+                </div>
               </div>
             </motion.article>
           ))}
         </div>
       </div>
-
-      {/* Article Reader Modal */}
-      <AnimatePresence>
-        {selectedArticle && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10 bg-gray-900/40 backdrop-blur-md"
-            onClick={() => setSelectedArticle(null)}
-          >
-            <motion.div 
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="bg-white w-full max-w-4xl max-h-[90vh] rounded-[3rem] overflow-hidden shadow-2xl flex flex-col relative"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal Header/Image */}
-              <div className="relative h-64 md:h-80 shrink-0">
-                <img 
-                  src={selectedArticle.image} 
-                  alt={selectedArticle.title} 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <button 
-                  onClick={() => setSelectedArticle(null)}
-                  className="absolute top-6 right-6 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-3 rounded-full transition-all active:scale-90"
-                >
-                  <X size={24} />
-                </button>
-                <div className="absolute bottom-8 left-8 right-8 text-white">
-                  <div className="flex items-center space-x-3 mb-2">
-                    <span className="bg-brandTeal text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Article</span>
-                    <span className="text-xs opacity-80">{selectedArticle.date}</span>
-                  </div>
-                  <h2 className="text-3xl md:text-4xl font-serif font-bold leading-tight">{selectedArticle.title}</h2>
-                </div>
-              </div>
-
-              {/* Modal Content */}
-              <div className="flex-1 overflow-y-auto p-8 md:p-12">
-                <div className="max-w-2xl mx-auto">
-                  <p className="text-xl text-gray-900 font-bold mb-8 italic leading-relaxed border-l-4 border-brandRed pl-6">
-                    {selectedArticle.excerpt}
-                  </p>
-                  <div className="prose prose-lg text-gray-600 font-light leading-loose space-y-6">
-                    {selectedArticle.content.split('. ').map((para, i) => (
-                      <p key={i}>{para}.</p>
-                    ))}
-                  </div>
-                  
-                  <div className="mt-12 pt-8 border-t border-gray-100 flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <button className="flex items-center space-x-2 text-gray-400 hover:text-brandRed transition-colors">
-                        <Heart size={20} />
-                        <span className="text-sm font-bold">124</span>
-                      </button>
-                      <button className="flex items-center space-x-2 text-gray-400 hover:text-brandTeal transition-colors">
-                        <Share2 size={20} />
-                        <span className="text-sm font-bold">Share</span>
-                      </button>
-                    </div>
-                    <button 
-                      onClick={() => setSelectedArticle(null)}
-                      className="bg-brandTeal text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-brandTeal/20 hover:bg-brandTeal/90 transition-all"
-                    >
-                      Close Reader
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };
