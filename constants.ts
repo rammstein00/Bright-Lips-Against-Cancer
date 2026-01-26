@@ -83,7 +83,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 ];
 
 export const HERO_IMAGES = [
-  'https://images.unsplash.com/photo-1581056771107-24ca5f033842?q=80&w=1200',
-  'https://images.unsplash.com/photo-1579154273151-549b0485b0d6?q=80&w=1200',
-  'https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=1200'
+  'https://scontent.flas1-1.fna.fbcdn.net/v/t39.30808-6/481161146_1031096459065191_2304942133155110675_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=8oo_PvTmlHkQ7kNvwFqEZl6&_nc_oc=Admkvr76NLuUo8wrl1BHv4nSZn0wF1q_s4n2L2M0_RDKmIwzKND94czGqPTTxnMRLc0&_nc_zt=23&_nc_ht=scontent.flas1-1.fna&_nc_gid=lmRin3UxYeAXIOSV6umaQw&oh=00_AfrQPLk0nXgXWdta0p_oBcCxosoLfk3o9zm8X2UJXXSrdA&oe=697D7B6D',
+  'https://scontent.flas1-1.fna.fbcdn.net/v/t39.30808-6/468460525_2062378907526102_6464658632890423522_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=3a1ebe&_nc_ohc=43pYHbDQJCcQ7kNvwFEmgOn&_nc_oc=AdnKBNunqO3hw91SaSUV4gGSUO9SzljEQz-JP315ODdoXwHi5FDPT6EbuGly0sgneEg&_nc_zt=23&_nc_ht=scontent.flas1-1.fna&_nc_gid=FgOO1bBBGeiagIkVw1wDRQ&oh=00_AfpV1b298WZAZnGs1ua5XQog_Ssa41Je3MnsBkbXwJ3i3w&oe=697D7DB0',
+  'https://130353302.cdn6.editmysite.com/uploads/1/3/0/3/130353302/VAB7BA7BN5UH6WCFT7ZWY4CA.jpeg?width=2560&optimize=medium'
 ];
