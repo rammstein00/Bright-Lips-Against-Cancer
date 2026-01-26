@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ShoppingCart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Logo from './Logo';
 
 interface NavbarProps {
   onNavigateHome?: () => void;
@@ -49,30 +50,16 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigateHome }) => {
   };
 
   return (
-    <nav className={`fixed w-full z-[100] transition-all duration-300 ${scrolled || window.location.hash.includes('article') ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'}`}>
+    <nav className={`fixed w-full z-[100] transition-all duration-500 ${scrolled || window.location.hash.includes('article') ? 'bg-white/90 backdrop-blur-md shadow-sm py-2' : 'bg-transparent py-4'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex-shrink-0 flex items-center space-x-3 cursor-pointer group"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex-shrink-0 flex items-center cursor-pointer group"
             onClick={handleLogoClick}
           >
-            <div className="relative">
-               <motion.div 
-                 animate={{ 
-                   scale: [1, 1.2, 1],
-                   opacity: [0.2, 0.4, 0.2] 
-                 }}
-                 transition={{ repeat: Infinity, duration: 4 }}
-                 className="absolute -inset-2 bg-brandTeal rounded-full blur-xl transition-opacity group-hover:opacity-60" 
-               />
-               <img 
-                 src="https://i.postimg.cc/mD8R5Y2m/logo-bright-lips.png" 
-                 alt="Bright Lips Logo" 
-                 className="h-14 w-auto object-contain relative z-10 transition-transform group-hover:scale-110" 
-               />
-            </div>
+            <Logo className="h-20 w-auto relative z-10 transition-transform group-hover:scale-105 duration-500" />
           </motion.div>
 
           <div className="hidden md:flex items-center space-x-8">
@@ -83,7 +70,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigateHome }) => {
                 className="text-gray-600 hover:text-brandTeal font-medium transition-colors text-sm uppercase tracking-wider outline-none relative group"
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brandTeal transition-all group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brandRed transition-all group-hover:w-full"></span>
               </button>
             ))}
             <button className="relative p-2 text-gray-600 hover:text-brandRed transition-colors">
@@ -92,7 +79,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigateHome }) => {
             </button>
             <button 
               onClick={() => scrollToSection('hero')}
-              className="bg-brandTeal text-white px-6 py-2.5 rounded-full font-bold shadow-lg shadow-brandTeal/20 hover:bg-brandTeal/90 transition-all active:scale-95 text-sm uppercase tracking-wide"
+              className="bg-brandTeal text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-brandTeal/20 hover:bg-brandTeal/90 transition-all active:scale-95 text-sm uppercase tracking-wide"
             >
               Donate Now
             </button>
