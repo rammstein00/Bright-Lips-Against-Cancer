@@ -72,10 +72,14 @@ const ArticleDetail: React.FC<ArticleDetailProps> = ({ article, onBack }) => {
           </h1>
 
           <div className="flex items-center space-x-4 mb-12 pb-12 border-b border-gray-100">
-            <img src="https://i.pravatar.cc/150?u=brightlips" className="w-12 h-12 rounded-full border-2 border-brandTeal" alt="Author" />
+            <img 
+              src="https://scontent.flas1-1.fna.fbcdn.net/v/t1.6435-9/104804455_972690146494989_5604347788892809637_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=0b6b33&_nc_ohc=2-aDfB_hY6QQ7kNvwF6bBy_&_nc_oc=AdnZB71z9mkTdrqV-P1DDdXpXU5b89NWkpDWPsM0-5yZQ05xwjHdUJ0pEMLnp_2E7eI&_nc_zt=23&_nc_ht=scontent.flas1-1.fna&_nc_gid=b6oB_l4_Fwq05TW_Qocj5w&oh=00_Afp0R49UnDofRhtfE0u3aLPm4HADOHSVw3gl7G67JB4z8A&oe=699F29D2" 
+              className="w-14 h-14 rounded-full border-2 border-brandTeal object-cover shadow-md" 
+              alt="Lisandra Balboa" 
+            />
             <div>
-              <div className="font-bold text-gray-900">Bright Lips Team</div>
-              <div className="text-xs text-gray-400 font-medium">Community Advocate</div>
+              <div className="font-bold text-gray-900 text-lg">Lisandra Balboa</div>
+              <div className="text-xs text-brandTeal font-bold uppercase tracking-widest">Founder & Executive Director</div>
             </div>
           </div>
 
@@ -131,7 +135,7 @@ const ArticleDetail: React.FC<ArticleDetailProps> = ({ article, onBack }) => {
           </div>
         </motion.div>
 
-        {/* Next/Prev Navigation could be added here */}
+        {/* Next/Prev Navigation */}
         <div className="mt-16 flex justify-center">
           <button 
             onClick={onBack}
