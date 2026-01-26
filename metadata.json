@@ -1,0 +1,8 @@
+{
+  "name": "Bright Lips Against Cancer",
+  "description": "A modern, animated web application for Bright Lips Against Cancer, providing emotional support for chemotherapy patients and raising awareness through high-quality products and events.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
