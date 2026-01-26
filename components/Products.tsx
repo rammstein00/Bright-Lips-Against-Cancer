@@ -41,42 +41,43 @@ const Products: React.FC = () => {
               transition={{ delay: index * 0.1 }}
               className="group"
             >
-              <div className="relative aspect-[3/4] bg-brandLight rounded-[2rem] overflow-hidden mb-6 shadow-sm border border-gray-100">
+              <a 
+                href={storeLinks[product.id]} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block relative aspect-[3/4] bg-brandLight rounded-[2rem] overflow-hidden mb-6 shadow-sm border border-gray-100 cursor-pointer"
+                aria-label={`Buy ${product.name}`}
+              >
                 <img 
                   src={product.image} 
                   alt={product.name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 
-                {/* Overlay actions */}
+                {/* Overlay actions (still visible on hover for visual cue) */}
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-3 backdrop-blur-[2px]">
-                   <a 
-                    href={storeLinks[product.id]} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-white p-4 rounded-full text-brandTeal hover:bg-brandTeal hover:text-white transition-all shadow-xl active:scale-90"
-                    title="Buy Now"
-                   >
+                   <div className="bg-white p-4 rounded-full text-brandTeal shadow-xl">
                       <ShoppingBag size={24} />
-                   </a>
-                   <a 
-                    href={storeLinks[product.id]} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-white p-4 rounded-full text-gray-800 hover:bg-gray-100 transition-all shadow-xl active:scale-90"
-                    title="View Details"
-                   >
+                   </div>
+                   <div className="bg-white p-4 rounded-full text-gray-800 shadow-xl">
                       <ExternalLink size={24} />
-                   </a>
+                   </div>
                 </div>
 
-                <div className="absolute top-4 right-4 bg-brandTeal text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg">
+                <div className="absolute top-4 right-4 bg-brandTeal text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg z-10">
                   ${product.price.toFixed(2)}
                 </div>
-              </div>
+              </a>
 
               <div className="text-center px-4">
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-brandTeal transition-colors">{product.name}</h3>
+                <a 
+                  href={storeLinks[product.id]} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block"
+                >
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-brandTeal transition-colors">{product.name}</h3>
+                </a>
                 <p className="text-sm text-gray-500 font-light mb-4 line-clamp-2">{product.description}</p>
                 <div className="h-0.5 w-12 bg-gray-200 mx-auto group-hover:w-full group-hover:bg-brandTeal transition-all duration-500" />
               </div>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Mail, Phone, MapPin, Instagram, Facebook, Heart } from 'lucide-react';
 
@@ -9,11 +8,11 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 border-b border-white/5 pb-16">
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-              <img src="https://i.postimg.cc/mD8R5Y2m/logo-bright-lips.png" alt="Logo" className="w-12 h-12 brightness-0 invert" />
-              <div className="flex flex-col">
-                <span className="text-2xl font-serif font-bold text-brandTeal leading-none">Bright Lips</span>
-                <span className="text-[10px] text-brandRed font-bold tracking-widest uppercase">Against Cancer</span>
-              </div>
+              <img 
+                src="https://i.postimg.cc/mD8R5Y2m/logo-bright-lips.png" 
+                alt="Bright Lips Logo" 
+                className="h-16 w-auto object-contain brightness-0 invert" 
+              />
             </div>
             <p className="text-gray-400 font-light leading-relaxed">
               Making a difference in the lives of chemotherapy patients through love, care, and community support.

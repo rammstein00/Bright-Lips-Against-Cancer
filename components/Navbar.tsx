@@ -34,32 +34,38 @@ const Navbar: React.FC = () => {
     <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div 
-            className="flex-shrink-0 flex items-center space-x-3 cursor-pointer"
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex-shrink-0 flex items-center space-x-3 cursor-pointer group"
             onClick={() => scrollToSection('hero')}
           >
-            <div className="relative w-10 h-10 group">
+            <div className="relative">
                <motion.div 
-                 animate={{ rotate: [0, 10, -10, 0] }}
+                 animate={{ 
+                   scale: [1, 1.2, 1],
+                   opacity: [0.2, 0.4, 0.2] 
+                 }}
                  transition={{ repeat: Infinity, duration: 4 }}
-                 className="absolute inset-0 bg-brandTeal opacity-20 rounded-full blur-xl group-hover:opacity-40 transition-opacity" 
+                 className="absolute -inset-2 bg-brandTeal rounded-full blur-xl transition-opacity group-hover:opacity-60" 
                />
-               <img src="https://i.postimg.cc/mD8R5Y2m/logo-bright-lips.png" alt="Logo" className="w-10 h-10 object-contain relative z-10" />
+               <img 
+                 src="https://i.postimg.cc/mD8R5Y2m/logo-bright-lips.png" 
+                 alt="Bright Lips Logo" 
+                 className="h-14 w-auto object-contain relative z-10 transition-transform group-hover:scale-110" 
+               />
             </div>
-            <div className="flex flex-col">
-              <span className="text-xl font-serif font-bold text-brandTeal leading-none tracking-tight">Bright Lips</span>
-              <span className="text-[10px] text-brandRed font-bold tracking-widest uppercase">Against Cancer</span>
-            </div>
-          </div>
+          </motion.div>
 
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.href)}
-                className="text-gray-600 hover:text-brandTeal font-medium transition-colors text-sm uppercase tracking-wider outline-none"
+                className="text-gray-600 hover:text-brandTeal font-medium transition-colors text-sm uppercase tracking-wider outline-none relative group"
               >
                 {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brandTeal transition-all group-hover:w-full"></span>
               </button>
             ))}
             <button className="relative p-2 text-gray-600 hover:text-brandRed transition-colors">
@@ -96,7 +102,7 @@ const Navbar: React.FC = () => {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-white border-t overflow-hidden shadow-xl"
           >
-            <div className="px-4 pt-2 pb-6 space-y-4">
+            <div className="px-4 pt-4 pb-8 space-y-4">
               {navLinks.map((link) => (
                 <button
                   key={link.name}
