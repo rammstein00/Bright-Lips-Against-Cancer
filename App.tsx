@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { AuthProvider } from './components/AuthContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Products from './components/Products';
@@ -8,11 +9,13 @@ import Blog from './components/Blog';
 import ArticleDetail from './components/ArticleDetail';
 import Footer from './components/Footer';
 import AiAssistant from './components/AiAssistant';
+import AuthModal from './components/AuthModal';
 import { BLOG_ARTICLES, BlogArticle } from './constants';
 
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
   const [view, setView] = useState<'home' | 'article'>('home');
   const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
 
   // Simple hash-based routing listener
   useEffect(() => {
@@ -43,7 +46,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen selection:bg-brandTeal/20 selection:text-brandTeal bg-brandLight">
-      <Navbar onNavigateHome={navigateToHome} />
+      <Navbar onNavigateHome={navigateToHome} onOpenAuth={() => setIsAuthOpen(true)} />
       
       <main className="pt-0">
         {view === 'home' ? (
@@ -105,6 +108,7 @@ const App: React.FC = () => {
 
       <Footer />
       <AiAssistant />
+      <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
     </div>
   );
 };
@@ -124,6 +128,13 @@ const Heart: React.FC<{size: number, className?: string}> = ({size, className}) 
   >
     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
   </svg>
+);
+
+// Main App wrapped with AuthProvider
+const App: React.FC = () => (
+  <AuthProvider>
+    <AppContent />
+  </AuthProvider>
 );
 
 export default App;

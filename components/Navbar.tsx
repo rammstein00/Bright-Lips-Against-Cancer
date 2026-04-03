@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ShoppingCart } from 'lucide-react';
+import { Menu, X, ShoppingCart, UserCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from './Logo';
+import UserMenu from './UserMenu';
+import { useAuth } from './AuthContext';
 
 interface NavbarProps {
   onNavigateHome?: () => void;
+  onOpenAuth?: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onNavigateHome }) => {
+const Navbar: React.FC<NavbarProps> = ({ onNavigateHome, onOpenAuth }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,6 +81,20 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigateHome }) => {
               <ShoppingCart size={22} />
               <span className="absolute top-0 right-0 bg-brandRed text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">0</span>
             </button>
+
+            {/* Auth: Sign In button or User Menu */}
+            {user ? (
+              <UserMenu />
+            ) : (
+              <button
+                onClick={onOpenAuth}
+                className="flex items-center space-x-2 px-4 py-2 rounded-full border-2 border-brandTeal/30 text-brandTeal hover:bg-brandTeal hover:text-white font-bold text-sm uppercase tracking-wide transition-all active:scale-95"
+              >
+                <UserCircle size={18} />
+                <span>Sign In</span>
+              </button>
+            )}
+
             <button 
               onClick={() => scrollToSection('hero')}
               className="bg-brandTeal text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-brandTeal/20 hover:bg-brandTeal/90 transition-all active:scale-95 text-sm uppercase tracking-wide"
@@ -86,6 +104,14 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigateHome }) => {
           </div>
 
           <div className="md:hidden flex items-center space-x-4">
+            {/* Mobile: User avatar or sign in */}
+            {user ? (
+              <UserMenu />
+            ) : (
+              <button onClick={onOpenAuth} className="text-brandTeal p-2">
+                <UserCircle size={24} />
+              </button>
+            )}
             <button className="text-gray-600">
                <ShoppingCart size={22} />
             </button>
@@ -117,6 +143,17 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigateHome }) => {
                   {link.name}
                 </button>
               ))}
+
+              {/* Mobile sign in button */}
+              {!user && (
+                <button
+                  onClick={() => { setIsOpen(false); if (onOpenAuth) onOpenAuth(); }}
+                  className="w-full bg-white border-2 border-brandTeal text-brandTeal px-6 py-3 rounded-xl font-bold"
+                >
+                  Sign In / Sign Up
+                </button>
+              )}
+
               <button 
                 onClick={() => scrollToSection('hero')}
                 className="w-full bg-brandTeal text-white px-6 py-3 rounded-xl font-bold shadow-lg"
